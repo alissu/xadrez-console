@@ -15,5 +15,10 @@ namespace tabuleiro
             Cor = cor;
             QuantidadeMovimentos = 0;
         }
+
+        public void IncrementaQuantidadeDeMovimento()
+        {
+            QuantidadeMovimentos++;
+        }
     }
 }
