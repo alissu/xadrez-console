@@ -5,8 +5,8 @@ namespace xadrez
     public class PartidaDeXadrez
     {
         public Tabuleiro Tabuleiro { get; private set; }
-        private int Turno;
-        private Cor JogadorAtual;
+        public int Turno { get; private set; }
+        public Cor JogadorAtual { get; private set; }
         public bool Terminada { get; private set; }
 
         public PartidaDeXadrez()
@@ -24,6 +24,31 @@ namespace xadrez
             pecaRetirada.IncrementaQuantidadeDeMovimento();
             Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
             Tabuleiro.ColocarPeca(pecaRetirada, destino);
+        }
+
+        public void RealizaJogada(Posicao origem, Posicao destino)
+        {
+            ExecutaMovimento(origem, destino);
+            Turno++;
+            JogadorAtual = JogadorAtual == Cor.Branca ? Cor.Preta : Cor.Branca;
+        }
+
+        public void ValidarPosicaoOrigem(Posicao origem)
+        {
+            if (Tabuleiro.Peca(origem) == null)
+                throw new TabuleiroException("Não existe peça na posição de origem escolhida.");
+
+            if (JogadorAtual != Tabuleiro.Peca(origem).Cor)
+                throw new TabuleiroException("A peça de origem escolhida não é sua!");
+
+            if (!Tabuleiro.Peca(origem).ExisteMovimentosPossiveis())
+                throw new TabuleiroException("Não há movimentos possíveis para a peça de origem escolhida!");
+        }
+
+        public void ValidarPosicaoDestino(Posicao origem, Posicao destino)
+        {
+            if (!Tabuleiro.Peca(origem).PodeMoverPara(destino))
+                throw new TabuleiroException("Posição de destino inválida!");
         }
 
         private void ColocarPecas()
