@@ -35,9 +35,12 @@ namespace tabuleiro
 
         public abstract bool[,] MovimentosPossiveis();
 
-        public void IncrementaQuantidadeDeMovimento()
+        public void AlteraQuantidadeDeMovimento(bool eIncremento)
         {
-            QuantidadeMovimentos++;
+            if (eIncremento)
+                QuantidadeMovimentos++;
+            else
+                QuantidadeMovimentos--;
         }
     }
 }
