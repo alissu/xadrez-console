@@ -31,7 +31,7 @@ namespace tabuleiro
             return false;
         }
 
-        public bool PodeMoverPara(Posicao posicao) => MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+        public bool MovimentoPossivel(Posicao posicao) => MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
 
         public abstract bool[,] MovimentosPossiveis();
 
